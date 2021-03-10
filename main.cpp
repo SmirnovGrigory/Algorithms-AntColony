@@ -1,6 +1,7 @@
 #include <iostream>
+
 #include "Colony.h"
 
-int main() {
+signed main() {
     return 0;
 }
