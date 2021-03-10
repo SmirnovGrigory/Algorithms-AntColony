@@ -2,6 +2,7 @@
 #include <cmath>
 #include <random>
 #include <fstream>
+#include <algorithm>
 
 #include "Colony.h"
 
@@ -11,7 +12,7 @@ double dist(Point first, Point second) {
     return sqrt(pow(first.x - second.x, 2) + pow(first.y - second.y, 2));
 }
 
-Colony::Colony(int64_t size1, int64_t initType, string fileName = "input.csv") {
+Colony::Colony(int64_t size1, int64_t initType, string fileName) {
     this->size = size1;
     this->points.resize(size1);
     this->answer.resize(size1);
@@ -27,12 +28,12 @@ void Colony::readCsv(string fileName) {
     ifstream input(fileName);
     string line;
     input >> line;
-    int id1,
-    double x1,
+    int id1;
+    double x1;
     double y1;
     for (int i = 0; i < size; ++i) {
         input >> line;
-        auto lineContent = Colony::split(line);
+        auto lineContent = Colony::split(line, ',');
         id1 = atol(lineContent[0].c_str());
         x1 = atof(lineContent[1].c_str());
         y1 = atof(lineContent[2].c_str());
@@ -57,7 +58,7 @@ vector<string> Colony::split(string buffer, char separator) {
 }
 
 void Colony::readStdin() {
-    int id;
+    int id1;
     double x1;
     double y1;
     for (int i = 0; i < size; ++i) {
@@ -81,7 +82,7 @@ void Colony::setOptimalCost(int64_t value) {
 double Colony::getCost() {
     double result = 0;
     for (int i = 0; i < size; ++i) {
-        result += dist(points[i], points[(i + 1) % size])
+        result += dist(*points[i], *points[(i + 1) % size]);
     }
     return result;
 }

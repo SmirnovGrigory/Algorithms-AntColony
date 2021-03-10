@@ -6,9 +6,17 @@
 #include <string>
 #include <cmath>
 
+#include "primes.h"
+
 using namespace std;
 
 #define int int64_t
+
+static bool isPrime(int x) {
+    auto position = lower_bound(primes, primes + PRIMES_COUNT, x);
+    if (*position == x) return true;
+    return false;
+}
 
 enum AgentTypes {
     COMMON,
@@ -58,7 +66,7 @@ private:
     vector<int> answer;  // текущий оптимальный ответ
 
 public:
-    static vector<string>split(string buffer, char separator);
+    static vector<string> split(string buffer, char separator);
 
     explicit Colony(int size1, int initType, string fileName = "input.csv");
 
