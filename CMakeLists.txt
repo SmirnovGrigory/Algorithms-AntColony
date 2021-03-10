@@ -3,4 +3,4 @@ project(AntColony)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(AntColony main.cpp)
+add_executable(AntColony main.cpp Colony.h Colony.cpp)
